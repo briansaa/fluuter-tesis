@@ -7,7 +7,7 @@ class LocationTrackingPage extends StatefulWidget {
   const LocationTrackingPage({super.key});
 
   @override
-  _LocationTrackingPageState createState() => _LocationTrackingPageState();
+  State<LocationTrackingPage> createState() => _LocationTrackingPageState();
 }
 
 class _LocationTrackingPageState extends State<LocationTrackingPage> {
