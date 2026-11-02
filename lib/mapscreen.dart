@@ -4,8 +4,10 @@ import 'directions_respository.dart';
 import 'directions_model.dart';
 
 class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
+
   @override
-  _MapScreenState createState() => _MapScreenState();
+  State<MapScreen> createState() => _MapScreenState();
 }
 
 class _MapScreenState extends State<MapScreen> {
@@ -32,8 +34,8 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void _setInitialMarkers() async {
-    final limaPosition = LatLng(-12.046374, -77.042793); // Lima
-    final cuscoPosition = LatLng(-13.53195, -71.96746); // Cusco
+    const limaPosition = LatLng(-12.046374, -77.042793); // Lima
+    const cuscoPosition = LatLng(-13.53195, -71.96746); // Cusco
 
     setState(() {
       _origin = Marker(

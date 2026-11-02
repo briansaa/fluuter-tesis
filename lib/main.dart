@@ -6,10 +6,12 @@ import 'location_tracking_page.dart';
 import 'homepage.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const HomePage(),
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
-        '/map': (context) => MapScreen(),
+        '/map': (context) => const MapScreen(),
         '/location_tracking': (context) => const LocationTrackingPage(),
       },
     );

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -15,10 +14,13 @@ class Directions {
     required this.totalDuration,
   });
 
-  factory Directions.fromMap(Map<String, dynamic> map) {
-    if ((map['routes'] as List).isEmpty) ;
+  /// Convierte la respuesta de la Directions API. Devuelve null si no hay ruta
+  /// (antes lanzaba un RangeError cuando `routes` venía vacío).
+  static Directions? fromMap(Map<String, dynamic> map) {
+    final routes = map['routes'] as List? ?? const [];
+    if (routes.isEmpty) return null;
 
-    final data = Map<String, dynamic>.from(map['routes'][0]);
+    final data = Map<String, dynamic>.from(routes[0]);
 
     // Obtener los límites (bounds)
     final northeast = data['bounds']['northeast'];
@@ -31,7 +33,7 @@ class Directions {
     // Obtener distancia y duración
     String distance = '';
     String duration = '';
-    if ((data['legs'] as List).isNotEmpty) {
+    if ((data['legs'] as List? ?? const []).isNotEmpty) {
       final leg = data['legs'][0];
       distance = leg['distance']['text'] ?? ''; // Asegurando que no sea nulo
       duration = leg['duration']['text'] ?? ''; // Asegurando que no sea nulo

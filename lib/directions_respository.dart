@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mapa_flutter/.env.dart';
+import 'package:mapa_flutter/config.dart';
 import 'package:mapa_flutter/directions_model.dart';
 
 class DirectionsRepository {
@@ -16,14 +16,17 @@ class DirectionsRepository {
     required LatLng origin,
     required LatLng destination,
   }) async {
+    if (googleApiKey.isEmpty) {
+      debugPrint('Falta GOOGLE_MAPS_API_KEY: usa --dart-define=GOOGLE_MAPS_API_KEY=...');
+      return null;
+    }
     try {
       final response = await _dio.get(
         _baseUrl,
         queryParameters: {
           'origin': '${origin.latitude},${origin.longitude}',
           'destination': '${destination.latitude},${destination.longitude}',
-          'key':
-              googleApiKey, // Asegúrate de usar la variable correcta para la API Key
+          'key': googleApiKey,
         },
       );
 
@@ -35,7 +38,7 @@ class DirectionsRepository {
         throw Exception('Failed to load directions');
       }
     } catch (e) {
-      print('Error fetching directions: $e');
+      debugPrint('Error al obtener la ruta: $e');
       return null;
     }
   }
